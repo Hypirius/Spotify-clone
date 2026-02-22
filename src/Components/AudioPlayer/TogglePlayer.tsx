@@ -3,9 +3,10 @@ import type { RefObject } from "react"
 
 export default function TogglePlayer({
   audioRef,
+  isEnded,
 }: {
   audioRef: RefObject<HTMLAudioElement | null>
-  ended: boolean
+  isEnded: boolean
 }) {
   const [playing, setPlaying] = useState(false)
 
@@ -26,6 +27,13 @@ export default function TogglePlayer({
 
     activateAudio()
   }, [playing, audioRef])
+
+ // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if(isEnded) {
+      setPlaying(false)
+    }
+  }, [isEnded]) 
 
   return playing ? (
     <button onClick={() => setPlaying(false)}>||</button>

@@ -5,6 +5,7 @@ import ResetAudio from "./ResetAudio"
 import LoopAudio from "./LoopAudio"
 import TogglePlayer from "./TogglePlayer"
 import AudioSource from "./AudioSource"
+import BidirectionTimeControl from "./BidirectionTimeControl"
 
 function AudioPlayer() {
   const [audioProgress, setAudioProgress] = useState(0)
@@ -26,6 +27,11 @@ function AudioPlayer() {
     }
   }
 
+  function handleOnEnded(ended: boolean) {
+    setIsEnded(ended)
+    setAudioProgress(0)
+  }
+
   return (
     <div id="playback-container">
       <AudioSource
@@ -33,7 +39,7 @@ function AudioPlayer() {
         audioRef={audioRef}
         setAudioProgress={setAudioProgress}
         setAudioDuration={setAudioDuration}
-        setIsEnded={setIsEnded}
+        onEnded={handleOnEnded}
       />
 
       <ProgressBar
@@ -44,7 +50,24 @@ function AudioPlayer() {
 
       <div id="playback-controls">
         <ResetAudio handleReset={changeTime} />
-        <TogglePlayer audioRef={audioRef} ended={isEnded} />
+
+        <BidirectionTimeControl
+          action="backwards"
+          changeTimeFn={changeTime}
+          currentAudioProgress={audioProgress}>
+          15-
+        </BidirectionTimeControl>
+
+        <TogglePlayer audioRef={audioRef} isEnded={isEnded} />
+
+        <BidirectionTimeControl
+          action="forwards"
+          changeTimeFn={changeTime}
+          currentAudioProgress={audioProgress}
+          audioDuration={audioDuration}>
+          15+
+        </BidirectionTimeControl>
+
         <LoopAudio loopAudio={loopAudio} />
       </div>
     </div>

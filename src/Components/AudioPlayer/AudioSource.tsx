@@ -5,14 +5,14 @@ export default function AudioSource({
   audioRef,
   setAudioDuration,
   setAudioProgress,
-  setIsEnded,
+  onEnded,
 }: AudioSourceProps) {
   return (
     <audio
       src={songData}
       onLoadedMetadata={(e) => setAudioDuration(e.currentTarget.duration)}
       onTimeUpdate={(e) => setAudioProgress(e.currentTarget.currentTime)}
-      onEnded={(e) => setIsEnded(e.currentTarget.ended)}
+      onEnded={(e) => onEnded(e.currentTarget.ended)}
       preload="auto"
       id="audio"
       ref={audioRef}
