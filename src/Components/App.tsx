@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import SongForm from "./SongForm"
-import AudioPlayer from "./AudioPlayer"
+import AudioPlayer from "./AudioPlayer/AudioPlayer"
 
 function App() {
   const [search, setSearch] = useState<string>("")
