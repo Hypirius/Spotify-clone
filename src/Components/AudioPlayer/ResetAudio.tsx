@@ -1,7 +1,9 @@
-export default function ResetAudio({
-  handleReset,
-}: {
-  handleReset: () => void
-}) {
-  return <button onClick={() => handleReset()}>O</button>
+import type { changeTimeFn } from "../../lib/types"
+
+type ResetAudioProps = {
+  changeTime: changeTimeFn
+}
+
+export default function ResetAudio({ changeTime }: ResetAudioProps) {
+  return <button onClick={() => changeTime()}>O</button>
 }

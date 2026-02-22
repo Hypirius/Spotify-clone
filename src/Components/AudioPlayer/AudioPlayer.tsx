@@ -49,7 +49,7 @@ function AudioPlayer() {
       />
 
       <div id="playback-controls">
-        <ResetAudio handleReset={changeTime} />
+        <ResetAudio changeTime={changeTime} />
 
         <BidirectionTimeControl
           action="backwards"
