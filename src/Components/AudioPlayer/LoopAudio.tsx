@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-export default function LoopAudio({
-  loopAudio,
-}: {
+type LoopAudioProps = {
   loopAudio: (state: boolean) => void
-}) {
+}
+
+export default function LoopAudio({ loopAudio }: LoopAudioProps) {
   const [isOn, setIsOn] = useState(false)
 
   function toggleLoop() {

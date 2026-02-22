@@ -28,12 +28,12 @@ export default function TogglePlayer({
     activateAudio()
   }, [playing, audioRef])
 
- // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if(isEnded) {
+    if (isEnded) {
       setPlaying(false)
     }
-  }, [isEnded]) 
+  }, [isEnded])
 
   return playing ? (
     <button onClick={() => setPlaying(false)}>||</button>

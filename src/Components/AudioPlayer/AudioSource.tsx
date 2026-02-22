@@ -1,4 +1,12 @@
-import type { AudioSourceProps } from "../../lib/types"
+import type { Dispatch, RefObject, SetStateAction } from "react"
+
+export type AudioSourceProps = {
+  songData: string
+  audioRef: RefObject<HTMLAudioElement | null>
+  setAudioProgress: Dispatch<SetStateAction<number>>
+  setAudioDuration: Dispatch<SetStateAction<number>>
+  onEnded: (ended: boolean) => void
+}
 
 export default function AudioSource({
   songData,

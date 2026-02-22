@@ -1,14 +1,17 @@
-import type { changeTimeFn } from "../../lib/types"
 import type { ChangeEvent } from "react"
+import type { changeTimeFn } from "../../lib/types"
+
+type ProgressBarProps = {
+  progression: number
+  duration: number
+  changeTime: changeTimeFn
+}
+
 export default function ProgressBar({
   progression,
   duration,
   changeTime,
-}: {
-  progression: number
-  duration: number
-  changeTime: changeTimeFn
-}) {
+}: ProgressBarProps) {
   function handleSlide(event: ChangeEvent<HTMLInputElement>) {
     changeTime(Number(event.target.value))
   }
