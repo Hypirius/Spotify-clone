@@ -1,42 +1,22 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import SongForm from "./SongForm"
-import AudioPlayer from "./AudioPlayer/AudioPlayer"
+// import AudioPlayer from "./AudioPlayer/AudioPlayer"
+import useDebouce from "../hooks/useDebouce"
+import useFetchData from "../hooks/useFetchData"
 
 function App() {
   const [search, setSearch] = useState<string>("")
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [isError, setIsError] = useState<string | null>(null)
+  const throttledInput = useDebouce(search, 500)
+  const [isLoading, error, data] = useFetchData(throttledInput)
 
-  useEffect(() => {
-    setIsLoading(true)
-    setIsError(null)
-
-    const controller = new AbortController()
-    async function fetchSongResult() {
-      try {
-        const response = await fetch("/test.json", {
-          signal: controller.signal,
-        })
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch data")
-        }
-      } catch (error) {
-        setIsError(error.message)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchSongResult()
-
-    return () => controller.abort()
-  }, [search])
+  console.log(data, isLoading, error)
 
   return (
     <main className="w-full h-screen flex flex-col items-center justify-center">
       <SongForm query={search} setQuery={setSearch} />
-      <AudioPlayer />
+      {isLoading && !error && <div>Loading...</div>}
+      {error && !isLoading && <div>{error}</div>}
+      {/* <AudioPlayer /> */}
       <section id="searched-songs-container"></section>
     </main>
   )
