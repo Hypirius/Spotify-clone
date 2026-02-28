@@ -23,7 +23,7 @@ export default function useFetchData(input: string): fetchReturn {
     const controller = new AbortController()
     async function fetchSongResult() {
       try {
-        const response = await fetch(`/api/search?q=track:${input}`, {
+        const response = await fetch(`/api/search?q=track:${input}&limit=10`, {
           signal: controller.signal,
         })
 

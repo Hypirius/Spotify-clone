@@ -1,4 +1,7 @@
+import type { Dispatch, SetStateAction } from "react"
+
 export type changeTimeFn = (time?: number) => void
+export type setSelectedAudioFn = Dispatch<SetStateAction<string | null>>
 
 export interface Data {
   data: TrackInfo[]
@@ -7,15 +10,15 @@ export interface Data {
 }
 
 export interface TrackInfo {
-  id: string
+  id: number
   readable: boolean
   title: string
   title_short: string
   title_version: string
   isrc: string
   link: string
-  duration: string
-  rank: string
+  duration: number
+  rank: number
   explicit_lyrics: boolean
   explicit_content_lyrics: number
   explicit_content_cover: number
@@ -27,7 +30,7 @@ export interface TrackInfo {
 }
 
 export interface Artist {
-  id: string
+  id: number
   name: string
   link: string
   picture: string
@@ -40,7 +43,7 @@ export interface Artist {
 }
 
 export interface Album {
-  id: string
+  id: number
   title: string
   cover: string
   cover_small: string

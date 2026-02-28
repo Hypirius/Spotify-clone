@@ -1,13 +1,16 @@
 import { useRef, useState } from "react"
-import songData from "../../DemoAudios/song.mp3"
 import ProgressBar from "./ProgressBar"
 import ResetAudio from "./ResetAudio"
 import LoopAudio from "./LoopAudio"
 import TogglePlayer from "./TogglePlayer"
 import AudioSource from "./AudioSource"
 import BidirectionTimeControl from "./BidirectionTimeControl"
+import type { setSelectedAudioFn } from "../../lib/types"
+import GoBackBtn from "./GoBackBtn"
 
-function AudioPlayer() {
+type AudioPlayerProps = { audioLink: string; selectAudio: setSelectedAudioFn }
+
+function AudioPlayer({ audioLink, selectAudio }: AudioPlayerProps) {
   const [audioProgress, setAudioProgress] = useState(0)
   const [audioDuration, setAudioDuration] = useState(0)
   const [isEnded, setIsEnded] = useState(false)
@@ -32,10 +35,11 @@ function AudioPlayer() {
     setAudioProgress(0)
   }
 
+  console.log(audioLink)
   return (
     <div id="playback-container">
       <AudioSource
-        songData={songData}
+        songData={audioLink}
         audioRef={audioRef}
         setAudioProgress={setAudioProgress}
         setAudioDuration={setAudioDuration}
@@ -69,6 +73,7 @@ function AudioPlayer() {
         </BidirectionTimeControl>
 
         <LoopAudio loopAudio={loopAudio} />
+        <GoBackBtn selectAudio={selectAudio} />
       </div>
     </div>
   )
